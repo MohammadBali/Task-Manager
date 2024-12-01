@@ -5,7 +5,7 @@ import 'Imports/default_imports.dart';
 
 /// Task Item Builder
 /// * [context] Current BuildContext.
-/// * [todo] TodoModel, Model to be built.
+/// * [to-do] TodoModel, Model to be built.
 /// Returns [Widget]
 Widget taskItemBuilder({required BuildContext context, required TodoModel todo, required AppCubit cubit, bool isAllTasks=false})
 {
@@ -34,23 +34,27 @@ Widget taskItemBuilder({required BuildContext context, required TodoModel todo, 
           mainAxisAlignment: MainAxisAlignment.end,
           children:
           [
-            TextButton(
-              onPressed: ()
-              {
-                cubit.finishTask(todo);
-              },
-              child: Text(Localization.translate('finish_task')),
+            defaultButton(
+              onPressed: todo.completed !=true
+                ?null
+                :()
+                {
+                  cubit.finishTask(todo);
+                },
+              message: Localization.translate('finish_task'),
+              type: ButtonType.text
 
 
             ),
 
 
-            TextButton(
+            defaultButton(
                 onPressed: ()
                 {
                   navigateTo(context, EditTodo(todo: todo, isFromAllTasks: isAllTasks,));
                 },
-                child: Text(Localization.translate('edit_task'))
+                message: Localization.translate('edit_task'),
+                type: ButtonType.text
             ),
           ],
         ),

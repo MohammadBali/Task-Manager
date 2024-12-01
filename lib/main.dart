@@ -19,15 +19,18 @@ void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //Initializing Dio
   MainDioHelper.init();
 
-  await CacheHelper.init(); //Starting CacheHelper (SharedPreferences)
+  //Initializing CacheHelper (SharedPreferences)
+  await CacheHelper.init();
 
-  //LOAD LANGUAGE
+  //Load Language using Localization
   AppCubit.language= CacheHelper.getData(key: 'language');
-  AppCubit.language ??= 'ar';
+  AppCubit.language ??= 'en';
   await Localization.load(Locale(AppCubit.language!)); // Set the initial locale
 
+  //print errors in console
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
   };
@@ -35,20 +38,20 @@ void main() async
 
   //Dio Initialization
 
-
-  bool? isDark = CacheHelper.getData(key: 'isDarkTheme'); //Getting the last Cached ThemeMode
+  //Getting the last Cached ThemeMode
+  bool? isDark = CacheHelper.getData(key: 'isDarkTheme');
   isDark ??= true;
 
   if (CacheHelper.getData(key: 'token') != null) {
-    token = CacheHelper.getData(key: 'token'); // Get User Token
+    token = CacheHelper.getData(key: 'token'); // Get User Token (Access Token)
   }
 
   if (CacheHelper.getData(key: 'refresh_token') != null) {
-    refreshToken = CacheHelper.getData(key: 'refresh_token'); // Get User Token
+    refreshToken = CacheHelper.getData(key: 'refresh_token'); // Get refresh Token
   }
 
 
-  Widget widget; //to figure out which widget to send (login, onBoarding or HomePage) we use a widget and set the value in it depending on the token.
+  Widget widget; //to figure out which widget to send (login or HomePage) we use a widget and set the value in it depending on the token.
 
   if (token.isNotEmpty) //Token is there, so user has logged in before
   {
@@ -72,8 +75,10 @@ class MyApp extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    //Start the bloc provider which creates our BLoC
     return BlocProvider(
-      create: (BuildContext context)=> AppCubit()..changeTheme(themeFromState: isDark)..getUserData(),
+      create: (BuildContext context)=> AppCubit()..changeTheme(themeFromState: isDark)..createDatabase()..getUserData(),
+      //Using Consumer to listen to any new changes and rebuild depending on that
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){},
         builder: (context,state)=>MaterialApp(
@@ -85,22 +90,21 @@ class MyApp extends StatelessWidget
               : ThemeMode.light,
           home: Directionality(
             textDirection: appDirectionality(),
-
             child: AnimatedSplashScreen(
-              duration: 3000,
+              duration: 1500,
               animationDuration: const Duration(milliseconds: 200),
               splash:
               const Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 14.0),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.0),
                 child:
                 Image(
-                  image: const AssetImage(
+                  image: AssetImage(
                     'assets/images/splash/maids.png',
                   ),
                 ),
               ),
 
-              splashIconSize: 2, //150
+              splashIconSize: MediaQuery.of(context).size.width /2, //150
               nextScreen: homeWidget,
               splashTransition: SplashTransition.fadeTransition,
               pageTransitionType: PageTransitionType.fade,

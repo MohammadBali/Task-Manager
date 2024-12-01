@@ -66,3 +66,63 @@ class AppGetAllTodosErrorState extends AppStates{
 class AppAlterTodoState extends AppStates{}
 
 //------------------------------------
+
+//DB
+
+//GET DB
+class AppGetDatabaseLoadingState extends AppStates{}
+
+class AppGetDatabaseSuccessState extends AppStates{}
+
+class AppGetDatabaseErrorState extends AppStates{
+
+  final String message;
+
+  AppGetDatabaseErrorState({required this.message});
+}
+
+//CREATE DB
+class AppCreateDatabaseSuccessState extends AppStates{}
+
+class AppCreateDatabaseLoadingState extends AppStates{}
+
+class AppCreateDatabaseErrorState extends AppStates{}
+
+//INSERT TO DB
+
+class AppInsertDatabaseLoadingState extends AppStates{}
+
+class AppInsertDatabaseErrorState extends AppStates{
+  final String message;
+
+  AppInsertDatabaseErrorState({required this.message});
+}
+
+class AppInsertDatabaseSuccessState extends AppStates{}
+
+//UPDATE DB
+
+class AppUpdateDatabaseLoadingState extends AppStates{}
+
+class AppUpdateDatabaseErrorState extends AppStates{
+  final String message;
+
+  AppUpdateDatabaseErrorState({required this.message});
+}
+
+class AppUpdateDatabaseSuccessState extends AppStates{}
+
+//DELETE FROM DB
+
+class AppDeleteFromDatabaseLoadingState extends AppStates{}
+
+class AppDeleteFromDatabaseErrorState extends AppStates{
+  final String message;
+
+  AppDeleteFromDatabaseErrorState({required this.message});
+}
+
+class AppDeleteFromDatabaseSuccessState extends AppStates{}
+
+//------------------------------------
+

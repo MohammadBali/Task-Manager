@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:maids_project/layout/cubit/cubit.dart';
 
 import 'colors.dart';
 //Refer to: https://docs.flutter.dev/release/breaking-changes/theme-data-accent-properties
 //Refer to: https://github.com/flutter/flutter/issues/91605
 
+///Setup the Light Theme Preferences
 ThemeData lightTheme(context) => ThemeData(
   useMaterial3: true,
 
@@ -12,12 +14,13 @@ ThemeData lightTheme(context) => ThemeData(
 
   // Adjust properties based on Material 3 API changes and your theme preferences
 
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     titleSpacing: 16.0,
     elevation: 0.0,
     surfaceTintColor: Colors.transparent, // Recommended for Material 3
     titleTextStyle: TextStyle(
       fontWeight: FontWeight.normal,
+      fontFamily: AppCubit.language == 'ar' ? 'Cairo' : null,
       fontSize: 20.0,
     ),
   ),
@@ -99,7 +102,7 @@ ThemeData lightTheme(context) => ThemeData(
   ),
 
   textTheme: Theme.of(context).textTheme.apply(
-    //fontFamily: AppCubit.language == 'ar' ? 'Cairo' : 'Railway',
+    fontFamily: AppCubit.language == 'ar' ? 'Cairo' : null,
     bodyColor: lightColorScheme.onSurface, // Use onSurface for text
   ),
 
@@ -125,17 +128,19 @@ ThemeData lightTheme(context) => ThemeData(
   // ),
 );
 
+///Setup the Dark Theme Preferences
 ThemeData darkTheme(context) => ThemeData(
   useMaterial3: true,
 
   colorScheme: darkColorScheme,
 
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     titleSpacing: 16.0,
     elevation: 0.0,
     surfaceTintColor: Colors.transparent, // Recommended for Material 3
     titleTextStyle: TextStyle(
       fontWeight: FontWeight.normal,
+      fontFamily: AppCubit.language == 'ar' ? 'Cairo' : null,
       fontSize: 20.0,
     ),
   ),
@@ -218,7 +223,7 @@ ThemeData darkTheme(context) => ThemeData(
   ),
 
   textTheme: Theme.of(context).textTheme.apply(
-    //fontFamily: AppCubit.language == 'ar' ? 'Cairo' : 'Railway',
+    fontFamily: AppCubit.language == 'ar' ? 'Cairo' : null,
     bodyColor: darkColorScheme.onSurface, // Use onSurface for text
   ),
 

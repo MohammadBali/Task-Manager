@@ -147,7 +147,6 @@ class _LoginState extends State<Login> {
                                   label: Localization.translate('username_login_tfm'),
                                   prefix: Icons.person_outline_sharp,
                                   isFilled: false,
-                                  fillColor: appCubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
 
                                   validate: (value)
                                   {
@@ -170,7 +169,7 @@ class _LoginState extends State<Login> {
                                   //suffixIconColor: Colors.grey,
                                   suffix: cubit.isPassVisible? Icons.visibility_off_rounded : Icons.visibility_rounded,
                                   isFilled: false,
-                                  fillColor: appCubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
+
                                   validate: (value)
                                   {
                                     if(value!.isEmpty)
@@ -365,7 +364,6 @@ class _LoginState extends State<Login> {
                                     //suffixIconColor: Colors.grey,
                                     suffix: cubit.isPassVisible? Icons.visibility_off_rounded : Icons.visibility_rounded,
                                     isFilled: false,
-                                    fillColor: appCubit.isDarkTheme? defaultBoxDarkColor : defaultBoxColor,
                                     validate: (value)
                                     {
                                       if(value!.isEmpty)

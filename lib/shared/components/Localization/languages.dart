@@ -50,6 +50,8 @@ const Map<String,String> en={
 
   //TASK DETAILS
 
+  'new_task':'Add a New Task!',
+
   'completed_tasks':'Completed Tasks',
 
   'non_completed_tasks':'Non Completed Tasks',
@@ -92,7 +94,7 @@ const Map<String,String> en={
 
   'welcome_back':'Welcome Back, ',
   'dark_mode':'Dark Mode',
-  'sign_out':'Sign Out',
+  'sign_out':'Sign Out & Exit',
 
   //--------------------------------------------------------------------\\
 
@@ -151,6 +153,8 @@ const Map<String,String> ar={
 
   //TASK DETAILS
 
+  'new_task':'أضف مهمة جديدة!',
+
   'completed_tasks':'المهام المنتهية',
 
   'non_completed_tasks':'المهام غير المنتهية',
@@ -193,7 +197,7 @@ const Map<String,String> ar={
 
   'dark_mode':'الوضع الداكن',
 
-  'sign_out':'تسجيل الخروج',
+  'sign_out':'تسجيل الخروج والإغلاق',
 
   //--------------------------------------------------------------------\\
 

@@ -11,6 +11,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  //Scroll Controller & listener for Lazy Loading
+  ScrollController scrollController= ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    AppCubit cubit = AppCubit.get(context);
+
+    scrollController.addListener(()
+    {
+      _onScroll(cubit);
+    });
+
+    if(cubit.allTodos ==null)
+    {
+      cubit.getAllTodos();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
@@ -21,6 +41,16 @@ class _HomePageState extends State<HomePage> {
           snackBarBuilder(message: Localization.translate('success'), context: context);
         }
         if(state is AppGetUserTodosErrorState)
+        {
+          snackBarBuilder(message: state.message, context: context);
+        }
+
+        if(state is AppInsertDatabaseSuccessState)
+        {
+          snackBarBuilder(message: Localization.translate('success'), context: context);
+        }
+
+        if(state is AppInsertDatabaseErrorState)
         {
           snackBarBuilder(message: state.message, context: context);
         }
@@ -41,11 +71,12 @@ class _HomePageState extends State<HomePage> {
             child: RefreshIndicator(
               onRefresh: ()async
               {
-                cubit.getUserTodos();
+                cubit.getUserTodos(getFromDB: true);
               },
 
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
+                controller: scrollController,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,6 +138,24 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  ///onScroll Function for to get next to-do items
+  void _onScroll(AppCubit cubit)
+  {
+    //Will Scroll Only and Only if: Got to the end of the list
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent)
+    {
+      if(cubit.userTodos?.pagination?.limit !=null && cubit.userTodos!.pagination!.limit! > 0)
+      {
+        debugPrint('paginating next user todos...');
+        cubit.getUserTodos(
+            limit: cubit.userTodos?.pagination?.limit?.toInt(),
+            skip: cubit.userTodos?.pagination?.skip?.toInt(),
+            isNextTodos: true);
+      }
+
+    }
   }
 
 }

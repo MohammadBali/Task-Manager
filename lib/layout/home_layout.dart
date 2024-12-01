@@ -14,8 +14,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin{
 
-  double val = 0.5;
   late TabController tabController;
+  var formKey=GlobalKey<FormState>();
+
+  TextEditingController newTodoIdController = TextEditingController();
+  TextEditingController newTodoNameController = TextEditingController();
 
   @override
   void initState()
@@ -77,7 +80,92 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 
                 onPressed: ()
                 {
-                  defaultModalBottomSheet(context: context);
+                  defaultModalBottomSheet(
+                    context: context,
+                    defaultButtonMessage: Localization.translate('submit_button'),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                        [
+                          Center(
+                            child: Text(
+                              Localization.translate('new_task'),
+                              style: headlineStyleBuilder(),
+                            ),
+                          ),
+
+                          const SizedBox(height: 5,),
+
+                          Text(
+                            Localization.translate('task_id'),
+                            style: textStyleBuilder(),
+                          ),
+
+                          const SizedBox(height: 10,),
+
+                          defaultTextFormField(
+                            controller: newTodoIdController,
+                            keyboard: TextInputType.number,
+                            label: Localization.translate('task_id'),
+                            prefix: Icons.numbers_outlined,
+                            validate: (value)
+                            {
+                              if(value == null || value.isEmpty)
+                              {
+                                return Localization.translate('empty_value');
+                              }
+                              return null;
+                            },
+                          ),
+
+                          const SizedBox(height: 20,),
+
+                          Text(
+                            Localization.translate('task_name'),
+                            style: textStyleBuilder(),
+                          ),
+
+                          const SizedBox(height: 10,),
+
+                          defaultTextFormField(
+                            controller: newTodoNameController,
+                            keyboard: TextInputType.text,
+                            label: Localization.translate('task_name'),
+                            prefix: Icons.abc_outlined,
+                            validate: (value)
+                            {
+                              if(value==null || value.isEmpty)
+                              {
+                                return Localization.translate('empty_value');
+                              }
+                              return null;
+                            },
+                          ),
+
+                          const SizedBox(height: 20,),
+                        ],
+                      ),
+                    ),
+                    onPressed: ()
+                    {
+                      if(formKey.currentState!.validate())
+                      {
+                        cubit.insertIntoDatabase(
+                            id: int.parse(newTodoIdController.value.text),
+                            todo: newTodoNameController.value.text,
+                            completed: 'false',
+                            type: 'user',
+                            userId: AppCubit.userData?.id ?? 0,
+                        );
+
+                        newTodoIdController.value = TextEditingValue.empty;
+                        newTodoNameController.value = TextEditingValue.empty;
+                      }
+                    }
+
+                  );
                 },
                 tooltip: 'Add Task',
                 child: const Icon(Icons.add),

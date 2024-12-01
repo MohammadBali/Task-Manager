@@ -32,10 +32,44 @@ class TodosModel
     {
       json['todos'].forEach((todo)
       {
-        todos.add(TodoModel.fromJson(todo));
+        TodoModel myTodo = TodoModel.fromJson(todo);
+
+        //Checks for no duplicate values
+        if(isFound(myTodo.id) == false)
+        {
+          todos.add(TodoModel.fromJson(todo));
+        }
+
       });
     }
 
+  }
+
+  ///Adds Todos coming from Local DB
+  void addTodosFromDB(Map<String,dynamic>todo)
+  {
+    TodoModel myTodo = TodoModel.fromJson(todo);
+
+    //Checks for no duplicate values
+    if(isFound(myTodo.id) == false)
+    {
+      todos.add(myTodo);
+    }
+
+  }
+
+  ///Checks if to-do exists
+  bool isFound(int? id)
+  {
+    for(var todo in todos ?? [])
+    {
+      if(todo.id == id)
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 }
@@ -51,12 +85,29 @@ class TodoModel
   {
     id= json['id'];
     todo =json['todo'];
-    completed = json['completed'];
+
+    try
+    {
+      completed = json['completed'];
+    }
+    catch (e)
+    {
+      completed = bool.tryParse(json['completed']);
+    }
 
     if(json['userId']!=null)
     {
       userId=json['userId'];
     }
+  }
+
+  @override
+  String toString() {
+    return 'TodoModel:\n'
+        'id: $id\n'
+        'todo: $todo\n'
+        'completed: $completed\n'
+        'userId: $userId\n';
   }
 }
 

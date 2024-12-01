@@ -8,7 +8,9 @@ import 'package:maids_project/modules/Settings/Settings.dart';
 import 'package:maids_project/shared/components/Imports/default_imports.dart';
 import 'package:maids_project/shared/network/end_points.dart';
 import 'package:maids_project/shared/network/remote/main_dio_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
+//Our State management, using BLoC
 class AppCubit extends Cubit<AppStates>
 {
   AppCubit(): super(AppInitialState());
@@ -44,7 +46,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
   ///Current Language Code
-  static String? language='';
+  static String? language='en';
 
   ///Change Language
   void changeLanguage(String lang) async
@@ -176,12 +178,169 @@ class AppCubit extends Cubit<AppStates>
 
   //--------------------------------------------------\\
 
+  //DB MANAGEMENT
+
+  Database? database;
+
+  ///Creates The Database
+  ///* If Already exists => Open it
+  void createDatabase()
+  {
+    emit(AppCreateDatabaseLoadingState());
+
+    openDatabase(
+      'todo.db',
+      version: 1,
+
+      onCreate: (database, version) async
+      {
+        debugPrint('Database has been created...');
+        await database.execute(
+            'CREATE TABLE tasks (id INTEGER PRIMARY KEY,todo TEXT, userId INTEGER, completed TEXT, type TEXT)'
+        ).then((value)
+        {
+          debugPrint('Table tasks has been created.');
+        }).catchError((error) {
+          debugPrint('An error occurred when creating tasks table ${error.toString()}');
+          emit(AppCreateDatabaseErrorState());
+        });
+      },
+      onOpen: (database) {
+        debugPrint('DB has been opened.');
+        getDatabase(database);
+      },
+    ).then((value) {
+      database = value;
+      emit(AppCreateDatabaseSuccessState());
+
+    }).catchError((error)
+    {
+      debugPrint('ERROR WHILE CREATING DB..., ${error.toString()}');
+      emit(AppCreateDatabaseErrorState());
+    });
+  }
+
+  ///*Insert Into The Tasks Table
+  ///[id] Task ID
+  ///[to-do] Massage
+  ///[completed] if the status is completed; default to false
+  ///[type] Setting it to user so it's a user type not global
+  ///[userId] User ID, usually the current user ID
+  void insertIntoDatabase({
+    required int id,
+    required String todo,
+    required String completed,
+    required String type,
+    required int userId,
+  }) async
+  {
+    emit(AppInsertDatabaseLoadingState());
+
+    await database?.transaction((txn) async {
+      await txn
+          .rawInsert(
+          'INSERT INTO tasks(id,todo,userId, completed, type) VALUES("$id", "$todo", "$userId", "$completed", "$type")')
+          .then((value) {
+        debugPrint('$value has been Inserted successfully');
+        emit(AppInsertDatabaseSuccessState());
+
+        getDatabase(database!);
+
+      }).catchError((error)
+      {
+        debugPrint('Error has occurred while inserting into database, ${error.toString()}');
+        emit(AppInsertDatabaseErrorState(message: 'Error has occurred while inserting into database, ${error.toString()}'));
+      });
+    });
+  }
+
+  void getDatabase(Database? database)  {
+    // userTodos=null;
+    // allTodos=null;
+    emit(AppGetDatabaseLoadingState());
+    database?.rawQuery('SELECT * FROM tasks').then((value) async {
+      for (var element in value)
+      {
+        // print(element.toString());
+        element['type'] == 'user'
+          ? userTodos?.addTodosFromDB(element)
+          : allTodos?.addTodosFromDB(element);
+      }
+      emit(AppGetDatabaseSuccessState());
+    }).catchError((error, stackTrace)
+    {
+      debugPrint('ERROR WHILE GETTING DATABASE..., ${error.toString()}');
+      emit(AppGetDatabaseErrorState(message: 'ERROR WHILE GETTING DATABASE..., ${error.toString()}'));
+    });
+  }
+
+  void updateDatabase({String? completed, String? todo, required int id}) async
+  {
+    emit(AppUpdateDatabaseLoadingState());
+
+    String query;
+    List<Object?> arguments;
+
+    if(todo !=null && completed !=null)
+    {
+      query = 'UPDATE tasks SET completed = ?, todo = ? WHERE id = ?';
+      arguments = [completed, todo, id,];
+    }
+    else if (todo ==null)
+    {
+      query = 'UPDATE tasks SET completed = ? WHERE id = ?';
+      arguments = [completed, id,];
+    }
+
+    else if (completed ==null)
+    {
+      query = 'UPDATE tasks SET todo = ? WHERE id = ?';
+      arguments = [todo, id,];
+    }
+
+    else
+    {
+      emit(AppUpdateDatabaseErrorState(message: 'All Arguments are empty'));
+      return;
+    }
+
+    database!.rawUpdate(query,arguments).then((value)
+    {
+      getDatabase(database);
+      emit(AppUpdateDatabaseSuccessState());
+    }).catchError((error)
+    {
+      debugPrint('ERROR WHILE UPDATING DB..., ${error.toString()}');
+      emit(AppUpdateDatabaseErrorState(message: 'ERROR WHILE UPDATING DB..., ${error.toString()}'));
+    });
+  }
+
+  void deleteDatabase({required int id}) async
+  {
+    emit(AppDeleteFromDatabaseLoadingState());
+
+    database!.rawDelete(
+        'DELETE FROM tasks WHERE id = ?', [id]
+    ).then((value)
+    {
+      getDatabase(database);
+      emit(AppDeleteFromDatabaseSuccessState());
+    }).catchError((error)
+    {
+      debugPrint('ERROR WHILE DELETING FROM DB..., ${error.toString()}');
+      emit(AppDeleteFromDatabaseErrorState(message: 'ERROR WHILE DELETING FROM DB..., ${error.toString()}'));
+    });
+  }
+
+
+  //--------------------------------------------------\\
+
   //TODOS
 
   TodosModel? userTodos;
 
   ///Get User Todos
-  void getUserTodos()
+  void getUserTodos({int? limit, int? skip, bool isNextTodos = false, bool getFromDB= false})
   {
     if(token!='')
     {
@@ -191,13 +350,29 @@ class AppCubit extends Cubit<AppStates>
 
       MainDioHelper.getData(
         url: '$getTodos/${userData?.id}',
+        query:
+        {
+          if(limit!=null) 'limit':limit,
+          if(skip!=null) 'skip':skip + (limit ?? 0),
+        },
       ).then((value)
       {
         debugPrint('Got This User Todos...');
 
-        userTodos = TodosModel.fromJson(value.data);
+        if(isNextTodos ==true)
+        {
+          userTodos?.addPagination(value.data);
+          userTodos?.addTodos(value.data);
+        }
+
+        else
+        {
+          userTodos = TodosModel.fromJson(value.data);
+        }
 
         emit(AppGetUserTodosSuccessState());
+
+        getFromDB? getDatabase(database) : null;
 
       }).catchError((error)
       {
@@ -253,6 +428,7 @@ class AppCubit extends Cubit<AppStates>
   ///Alter a To-do from [userTodos]
   void alterInMyTodos(TodoModel todo)
   {
+    updateDatabase(id: todo.id!, completed: todo.completed.toString(), todo: todo.todo);
 
     for (var item in userTodos?.todos ?? [])
     {
@@ -268,6 +444,8 @@ class AppCubit extends Cubit<AppStates>
   ///Finish Model; Set Status to Completed
   void finishTask(TodoModel todo)
   {
+    updateDatabase(id: todo.id!, completed: todo.completed.toString());
+
     todo.completed=true;
     emit(AppAlterTodoState());
   }
@@ -275,6 +453,8 @@ class AppCubit extends Cubit<AppStates>
   ///Delete a Task
   void deleteTaskMyTodos(int? id)
   {
+    deleteDatabase(id: id!);
+
     for (var todo in userTodos?.todos ?? [])
     {
       if(todo.id == id)

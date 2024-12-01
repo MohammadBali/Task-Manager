@@ -81,7 +81,7 @@ SnackBar defaultSnackBar(
 Widget defaultButton(
 {
   required ButtonType type,
-  required void Function() onPressed,
+  void Function()? onPressed,
   String message='SUBMIT',
   Widget? customChild,
 })
@@ -89,7 +89,7 @@ Widget defaultButton(
   switch (type)
   {
     case ButtonType.filled:
-      return FilledButton(onPressed: onPressed, child: customChild?? Text(message));
+      return FilledButton(onPressed: onPressed, child: customChild?? Text(message), );
 
     case ButtonType.filledTonal:
       return FilledButton.tonal(onPressed: onPressed, child: customChild?? Text(message));
@@ -101,7 +101,7 @@ Widget defaultButton(
       return ElevatedButton(onPressed: onPressed, child: customChild?? Text(message));
 
     case ButtonType.text:
-      return TextButton(onPressed: onPressed, child: customChild?? Text(message));
+      return TextButton(onPressed: onPressed, child: customChild?? Text(message), );
 
 
   }
@@ -125,41 +125,47 @@ void defaultModalBottomSheet(
 
   String defaultButtonMessage = 'Close',
   ButtonType defaultButtonType = ButtonType.outlined,
+  void Function()? onPressed,
+  bool popAfterButton=true,
 })
 {
   showModalBottomSheet(
       context: context,
       backgroundColor: currentColorScheme(context).surfaceContainerLow,
       showDragHandle: showDragHandle,
+      // enableDrag: true,
       builder: (BuildContext bottomSheetContext)
       {
         return customChild?? SizedBox(
-          height: height?? MediaQuery.of(context).size.height / 4,
+          //height: height?? MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children:
-              [
-                if(child!=null) child,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children:
+                [
+                  if(child!=null) child,
+              
+                  const SizedBox(height: 10,),
 
-
-                const Spacer(),
-                Align(
-                  alignment: AlignmentDirectional.center,
-                  child: defaultButton(
-                    message: defaultButtonMessage,
-                    type: defaultButtonType,
-                    onPressed: ()
-                    {
-                      Navigator.of(bottomSheetContext).pop();
-                    }
+                  Align(
+                    alignment: AlignmentDirectional.center,
+                    child: defaultButton(
+                      message: defaultButtonMessage,
+                      type: defaultButtonType,
+                      onPressed:()
+                      {
+                        onPressed!=null? onPressed() : null;
+                        popAfterButton? Navigator.of(bottomSheetContext).pop() : null;
+                      }
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
