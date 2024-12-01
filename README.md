@@ -113,7 +113,6 @@ The project is organized to ensure maintainability and scalability.
 ### Prerequisites
 - **Flutter SDK**: Ensure Flutter is installed. [Install Flutter](https://docs.flutter.dev/get-started/install)
 - **Dart SDK**: Included with Flutter.
-- **SQLite** and **SharedPreferences** plugins are already integrated.
 
 ### Installation
 
@@ -136,8 +135,10 @@ The project is organized to ensure maintainability and scalability.
 
 - **BLoC** for State Management: Chosen for scalability and separation of concerns.
 - **SQLite** for Persistent Storage: Ensures tasks are available offline.
-- **Material 3 Design:** Used for a modern and accessible user interface.
 - **Dio:** Simplifies HTTP requests and error handling.
+- - **Material 3 Design:** Used for a modern and accessible user interface.
+- **Localization** Localization is important for multiple language support.
+- **Modes** Light & Dark Mode are enabled to ensure ease of use
 
 
 ---
@@ -146,7 +147,7 @@ The project is organized to ensure maintainability and scalability.
 
 1. Writing comprehensive unit tests for both online and offline functionality.
 
-2. Google Material 3 rules
+2. Following Google Material 3 guidelines
 
 
 ---
