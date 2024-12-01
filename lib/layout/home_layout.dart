@@ -32,7 +32,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
 
     return BlocConsumer<AppCubit,AppStates>(
-      listener:(context,state){},
+      listener:(context,state)
+      {
+        if(state is AppRefreshTokenSuccessState)
+        {
+          snackBarBuilder(context: context, message: Localization.translate('success'));
+        }
+      },
 
       builder:(context,state)
       {

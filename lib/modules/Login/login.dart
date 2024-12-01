@@ -117,11 +117,10 @@ class _LoginState extends State<Login> {
                               children:
                               [
                                 Text(
-                                  Localization.translate('login_second_title'),
+                                  Localization.translate('login_title'),
                                   style: TextStyle(
                                     color: appCubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                    fontFamily: AppCubit.language == 'ar'? 'Cairo': 'Poppins',
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 32,
                                   ),
 
@@ -129,15 +128,14 @@ class _LoginState extends State<Login> {
 
                                 const SizedBox(height: 5,),
 
-                                // Text(
-                                //   Localization.translate('login_second_title'),//'Login Now and Start Revealing the Truth',
-                                //   style: TextStyle(
-                                //     fontSize: 16,
-                                //     color: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
-                                //     fontFamily: AppCubit.language == 'ar'? 'Cairo': 'Railway',
-                                //     fontWeight: FontWeight.w400
-                                //   ),
-                                // ),
+                                Text(
+                                  Localization.translate('login_second_title'),//'Login Now and Start Revealing the Truth',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
+                                    fontWeight: FontWeight.w400
+                                  ),
+                                ),
 
                                 const SizedBox(height: 60,),
 
@@ -230,7 +228,6 @@ class _LoginState extends State<Login> {
                                                     onChanged: (newValue) {
 
                                                       setState(() {
-                                                        print('Current Language is: $newValue');
                                                         currentLanguage = newValue!;
                                                         state.didChange(newValue);
 
@@ -240,7 +237,7 @@ class _LoginState extends State<Login> {
 
                                                         }).catchError((error)
                                                         {
-                                                          print('ERROR WHILE SWITCHING LANGUAGES, ${error.toString()}');
+                                                          debugPrint('ERROR WHILE SWITCHING LANGUAGES, ${error.toString()}');
                                                           snackBarBuilder(message: error.toString(), context: context);
                                                         });
                                                       });
@@ -313,27 +310,25 @@ class _LoginState extends State<Login> {
                                 children:
                                 [
                                   Text(
-                                    Localization.translate('login_second_title'),
+                                    Localization.translate('login_title'),
                                     style: TextStyle(
                                       color: appCubit.isDarkTheme? defaultDarkColor : defaultColor,
-                                      fontFamily: AppCubit.language == 'ar'? 'Cairo': 'Poppins',
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 32,
                                     ),
 
                                   ),
 
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: 5,),
 
-                                  // Text(
-                                  //   Localization.translate('login_second_title'),//'Login Now and Start Revealing the Truth',
-                                  //   style: TextStyle(
-                                  //       fontSize: 16,
-                                  //       color: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
-                                  //       fontFamily: AppCubit.language == 'ar'? 'Cairo': 'Poppins',
-                                  //       fontWeight: FontWeight.w400
-                                  //   ),
-                                  // ),
+                                  Text(
+                                    Localization.translate('login_second_title'),//'Login Now and Start Revealing the Truth',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: AppCubit.get(context).isDarkTheme? defaultDarkColor : defaultColor,
+                                        fontWeight: FontWeight.w400
+                                    ),
+                                  ),
 
                                   const SizedBox(height: 60,),
 

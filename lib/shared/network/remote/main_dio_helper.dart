@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import '../end_points.dart';
+import 'package:maids_project/shared/network/end_points.dart';
 
-// Dio is an HTTP client, we declare in the init() giving the url to get the data from, and it getData we give him the method and queries.
+// Dio is our main HTTP client
 class MainDioHelper
 {
   static Dio ? dio;
@@ -17,9 +12,6 @@ class MainDioHelper
       BaseOptions(
         baseUrl: localhost,
         receiveDataWhenStatusError: true,
-        // receiveTimeout: Duration.zero, //50000,
-        // connectTimeout: Duration.zero, //30000,
-        // validateStatus: (status)=>true, //Won't throw errors
       ),
 
     );

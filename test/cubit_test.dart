@@ -1,11 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:maids_project/shared/components/Imports/default_imports.dart';
-import 'package:maids_project/shared/network/remote/main_dio_helper.dart';
-import 'package:mocktail/mocktail.dart';
-
-class MockCacheHelper extends Mock implements CacheHelper {}
-class MockDioHelper extends Mock implements MainDioHelper {}
 
 void main() {
   late AppCubit appCubit;
@@ -63,6 +58,5 @@ void main() {
       },
     );
   });
-
 
 }

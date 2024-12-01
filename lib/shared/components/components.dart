@@ -63,7 +63,7 @@ SnackBar defaultSnackBar(
   void Function()? onPressed,
 
 })=>SnackBar(
-  content: Text(message),
+  content: Text(message, maxLines: 4, overflow: TextOverflow.ellipsis,),
   action: SnackBarAction(
     label: quitMessage ?? Localization.translate('exit'),
     onPressed: onPressed?? (){},
@@ -89,7 +89,7 @@ Widget defaultButton(
   switch (type)
   {
     case ButtonType.filled:
-      return FilledButton(onPressed: onPressed, child: customChild?? Text(message), );
+      return FilledButton(onPressed: onPressed, child: customChild?? Text(message),);
 
     case ButtonType.filledTonal:
       return FilledButton.tonal(onPressed: onPressed, child: customChild?? Text(message));
