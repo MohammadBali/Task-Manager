@@ -129,6 +129,11 @@ The project is organized to ensure maintainability and scalability.
    ```bash
    flutter run
 
+4. To Produce an APK for an Android Release:
+   ```bash
+   flutter build apk --release
+
+> **_NOTE:_** App is not signed yet for a Google Store Release, so it will ask for a scan on Installation
 ---
 
 ## Design Decisions
@@ -136,7 +141,7 @@ The project is organized to ensure maintainability and scalability.
 - **BLoC** for State Management: Chosen for scalability and separation of concerns.
 - **SQLite** for Persistent Storage: Ensures tasks are available offline.
 - **Dio:** Simplifies HTTP requests and error handling.
-- - **Material 3 Design:** Used for a modern and accessible user interface.
+- **Material 3 Design:** Used for a modern and accessible user interface.
 - **Localization** Localization is important for multiple language support.
 - **Modes** Light & Dark Mode are enabled to ensure ease of use
 
