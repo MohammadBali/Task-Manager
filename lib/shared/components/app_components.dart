@@ -35,7 +35,7 @@ Widget taskItemBuilder({required BuildContext context, required TodoModel todo, 
           children:
           [
             defaultButton(
-              onPressed: todo.completed !=true
+              onPressed: todo.completed ==true
                 ?null
                 :()
                 {
