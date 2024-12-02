@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maids_project/layout/cubit/cubit.dart';
@@ -20,11 +22,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   TextEditingController newTodoIdController = TextEditingController();
   TextEditingController newTodoNameController = TextEditingController();
 
+  Timer? _timer;
+
+
   @override
   void initState()
   {
-    tabController = TabController(length: AppCubit.get(context).tabBarWidgets.length, vsync: this);
     super.initState();
+
+    tabController = TabController(length: AppCubit.get(context).tabBarWidgets.length, vsync: this);
+
+    // Update every minute
+    _timer = Timer.periodic(const Duration(minutes: 20), (Timer t)
+    {
+      AppCubit.get(context).refreshAuthSession();
+    });
+
+
   }
 
 
@@ -48,7 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-              title:  Text(Localization.translate('login_title')),
+              title:  Text(Localization.translate('appBar_title_home')),
 
               bottom: defaultTabBar(
                   context: context,

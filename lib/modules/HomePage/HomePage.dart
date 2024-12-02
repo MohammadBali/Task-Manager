@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> {
       builder: (context,state)
       {
         var cubit = AppCubit.get(context);
-
         var completedTodos = cubit.userTodos?.todos.where((item)=>item?.completed ==true).toList();
         var nonCompletedTodos = cubit.userTodos?.todos.where((item)=>item?.completed ==false).toList();
 
@@ -86,24 +85,29 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           defaultLinearProgressIndicator(context: context),
-
                           const SizedBox(height: 15,),
                         ],
                       ),
                 
-                    Text(
-                      Localization.translate('completed_tasks'),
-                      style: headlineStyleBuilder(),
+                    Visibility(
+                      visible: completedTodos !=null && completedTodos.isNotEmpty,
+                      child: Text(
+                        Localization.translate('completed_tasks'),
+                        style: headlineStyleBuilder(),
+                      ),
                     ),
                 
-                    const SizedBox(height: 10,),
+                    Visibility(
+                      visible: completedTodos !=null && completedTodos.isNotEmpty,
+                      child: const SizedBox(height: 10,))
+                    ,
                 
                     ConditionalBuilder(
                         condition: cubit.userTodos !=null,
                         builder: (context)=>ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemBuilder: (context,index)=>taskItemBuilder(context: context, cubit:cubit, todo: completedTodos[index]!),
+                          itemBuilder: (context,index)=>taskItemBuilder(context: context, cubit:cubit, todo: completedTodos[index]!, showCompleted: false),
                           separatorBuilder: (context,index)=>const SizedBox(height: 15,),
                           itemCount: completedTodos!.length,
                         ),
@@ -112,9 +116,12 @@ class _HomePageState extends State<HomePage> {
                 
                     const SizedBox(height: 25,),
                 
-                    Text(
-                      Localization.translate('non_completed_tasks'),
-                      style: headlineStyleBuilder(),
+                    Visibility(
+                      visible:  nonCompletedTodos !=null &&  nonCompletedTodos.isNotEmpty,
+                      child: Text(
+                        Localization.translate('non_completed_tasks'),
+                        style: headlineStyleBuilder(),
+                      ),
                     ),
                 
                     const SizedBox(height: 10,),
@@ -124,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                         builder: (context)=>ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemBuilder: (context,index)=>taskItemBuilder(context: context, cubit:cubit, todo: nonCompletedTodos[index]!),
+                          itemBuilder: (context,index)=>taskItemBuilder(context: context, cubit:cubit, todo: nonCompletedTodos[index]!, showCompleted: false),
                           separatorBuilder: (context,index)=>const SizedBox(height: 15,),
                           itemCount: nonCompletedTodos!.length,
                         ),

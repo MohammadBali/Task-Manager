@@ -642,7 +642,7 @@ TextStyle textStyleBuilder({
 
 
 TextStyle headlineStyleBuilder({
-  double fontSize=24,
+  double fontSize=20,
   FontWeight fontWeight=FontWeight.w600,
   String? fontFamily,
   Color? color,

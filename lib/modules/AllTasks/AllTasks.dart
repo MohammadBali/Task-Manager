@@ -69,12 +69,7 @@ class _AllTasksState extends State<AllTasks> {
                       ],
                     ),
 
-                  Text(
-                    Localization.translate('all_tasks'),
-                    style: headlineStyleBuilder(),
-                  ),
-
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 35,),
 
                   ConditionalBuilder  (
                       condition: cubit.allTodos !=null,

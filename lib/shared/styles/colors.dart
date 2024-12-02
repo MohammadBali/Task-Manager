@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-Color seedColor = Colors.indigoAccent;
+Color seedColor = Colors.indigo;
 
 // Light and dark color schemes using `ColorScheme.fromSeed`
 final ColorScheme lightColorScheme = ColorScheme.fromSeed(
   seedColor: seedColor,
   brightness: Brightness.light,
-
 );
 
 final ColorScheme darkColorScheme = ColorScheme.fromSeed(

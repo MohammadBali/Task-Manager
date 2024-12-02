@@ -174,6 +174,7 @@ ThemeData darkTheme(context) => ThemeData(
     ),
   ),
 
+
   inputDecorationTheme: InputDecorationTheme(
     prefixIconColor: darkColorScheme.onSurfaceVariant,
     suffixIconColor: darkColorScheme.onSurfaceVariant,
@@ -223,7 +224,7 @@ ThemeData darkTheme(context) => ThemeData(
 
   textTheme: Theme.of(context).textTheme.apply(
     fontFamily: AppCubit.language == 'ar' ? 'Cairo' : null,
-    bodyColor: darkColorScheme.onSurface, // Use onSurface for text
+    bodyColor: darkColorScheme.onSurface,
   ),
 
   // switchTheme: SwitchThemeData(

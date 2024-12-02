@@ -7,15 +7,18 @@ import 'Imports/default_imports.dart';
 /// * [context] Current BuildContext.
 /// * [to-do] TodoModel, Model to be built.
 /// Returns [Widget]
-Widget taskItemBuilder({required BuildContext context, required TodoModel todo, required AppCubit cubit, bool isAllTasks=false})
+Widget taskItemBuilder({required BuildContext context, required TodoModel todo, required AppCubit cubit, bool isAllTasks=false, bool showCompleted=true})
 {
   return Card(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
-          title: Text('${todo.todo}'),
-          subtitle: Text('${Localization.translate('task_status')} ${todo.completed}'),
+          title: Text(
+            '${todo.todo}',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          subtitle: showCompleted? Text('${Localization.translate('task_status')} ${todo.completed}') : null,
 
           leading: Text('${todo.id}'),
           trailing: IconButton(
@@ -35,25 +38,22 @@ Widget taskItemBuilder({required BuildContext context, required TodoModel todo, 
           children:
           [
             defaultButton(
-              onPressed: todo.completed ==true
-                ?null
-                :()
-                {
-                  cubit.finishTask(todo);
-                },
-              message: Localization.translate('finish_task'),
-              type: ButtonType.text
-
-
-            ),
-
-
-            defaultButton(
                 onPressed: ()
                 {
                   navigateTo(context, EditTodo(todo: todo, isFromAllTasks: isAllTasks,));
                 },
                 message: Localization.translate('edit_task'),
+                type: ButtonType.text
+            ),
+
+            defaultButton(
+                onPressed: todo.completed ==true
+                    ?null
+                    :()
+                {
+                  cubit.finishTask(todo);
+                },
+                message: Localization.translate('finish_task'),
                 type: ButtonType.text
             ),
           ],

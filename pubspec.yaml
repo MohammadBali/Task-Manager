@@ -106,6 +106,21 @@ flutter:
         - asset: assets/fonts/Cairo/Cairo-Regular.ttf
         - asset: assets/fonts/Cairo/Cairo-SemiBold.ttf
 
+    - family: WithoutSans
+      fonts:
+        - asset: assets/fonts/WithoutSans/WithoutSans-Bold.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-BoldItalic.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-Light.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-LightItalic.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-ExtraLight.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-ExtraLightItalic.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-Medium.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-MediumItalic.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-Regular.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-RegularItalic.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-Thin.ttf
+        - asset: assets/fonts/WithoutSans/WithoutSans-ThinItalic.ttf
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

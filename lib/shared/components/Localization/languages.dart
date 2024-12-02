@@ -13,11 +13,11 @@ const Map<String,String> en={
 
 
   //App Bar
-  'appBar_title_home':'TodoApp',
+  'appBar_title_home':'Maids.cc Task Manager',
 
   //Login:
 
-  'login_title':'Todo App',
+  'login_title':'Task Manager',
   'login_second_title':'Login Now!',
 
   'username_login_tfm':'Username',
@@ -54,7 +54,7 @@ const Map<String,String> en={
 
   'completed_tasks':'Completed Tasks',
 
-  'non_completed_tasks':'Non Completed Tasks',
+  'non_completed_tasks':'Incomplete Tasks',
 
   'task_details':'Task Details',
 
@@ -104,6 +104,7 @@ const Map<String,String> en={
 const Map<String,String> ar={
 
   //Global
+  //Global
 
   'submit_button':'ثّبت',
   'upload_button':'ارفع',
@@ -116,11 +117,11 @@ const Map<String,String> ar={
 
   //App Bar
 
-  'appBar_title_home':'مدير المهام',
+  'appBar_title_home':'مدير مهام Maids.CC',
 
   //Login:
 
-  'login_title':'برنامج مدير المهام',
+  'login_title':'مدير مهام',
   'login_second_title':'قم بتسجيل الدخول',
   'registerNow':'إنشاء حساب',
 

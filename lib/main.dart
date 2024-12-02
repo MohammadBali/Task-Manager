@@ -1,3 +1,4 @@
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,20 +92,39 @@ class MyApp extends StatelessWidget
           home: Directionality(
             textDirection: appDirectionality(),
             child: AnimatedSplashScreen(
-              duration: 1500,
+              duration: 2000,
               animationDuration: const Duration(milliseconds: 200),
               splash:
-              const Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.0),
+              Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 14.0),
                 child:
-                Image(
-                  image: AssetImage(
-                    'assets/images/splash/maids.png',
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Expanded(
+                      child: Image(
+                        image: AssetImage(
+                          'assets/images/splash/maids.png',
+                        ),
+                      ),
+                    ),
+
+                  Text(
+                    'Get a Full-time Maid or a Maid Visa',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'WithoutSans',
+                      color: AppCubit.get(context).isDarkTheme
+                          ?darkColorScheme.onSurface
+                          :lightColorScheme.onSurface
+                    ),
+                  )
+                  ],
                 ),
               ),
 
-              splashIconSize: MediaQuery.of(context).size.width /2, //150
+              splashIconSize: MediaQuery.of(context).size.width /1.1,
               nextScreen: homeWidget,
               splashTransition: SplashTransition.fadeTransition,
               pageTransitionType: PageTransitionType.fade,

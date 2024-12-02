@@ -163,6 +163,7 @@ class _EditTodoState extends State<EditTodo> {
 
                       Center(
                         child: defaultButton(
+                          message: Localization.translate('submit_button'),
                           type: ButtonType.filledTonal,
                           onPressed: ()
                           {
