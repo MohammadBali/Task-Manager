@@ -123,7 +123,7 @@ void defaultModalBottomSheet(
 
   String defaultButtonMessage = 'Close',
   ButtonType defaultButtonType = ButtonType.outlined,
-  void Function()? onPressed,
+  void Function(BuildContext bottomSheetContext)? onPressed,
   bool popAfterButton=true,
 })
 {
@@ -157,7 +157,7 @@ void defaultModalBottomSheet(
                       type: defaultButtonType,
                       onPressed:()
                       {
-                        onPressed!=null? onPressed() : null;
+                        onPressed!=null? onPressed(bottomSheetContext) : null;
                         popAfterButton? Navigator.of(bottomSheetContext).pop() : null;
                       }
                     ),

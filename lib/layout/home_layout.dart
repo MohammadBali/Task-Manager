@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   TextEditingController newTodoIdController = TextEditingController();
   TextEditingController newTodoNameController = TextEditingController();
 
-  Timer? _timer;
+  Timer? timer;
 
   //Global keys for ShowCaseView
   final GlobalKey myTasksKey= GlobalKey();
@@ -35,13 +35,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     tabController = TabController(length: AppCubit.get(context).tabBarWidgets.length, vsync: this);
 
     // Update every minute
-    _timer = Timer.periodic(const Duration(minutes: 20), (Timer t)
+    timer = Timer.periodic(const Duration(minutes: 20), (Timer t)
     {
       AppCubit.get(context).refreshAuthSession();
     });
 
   }
 
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +103,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
             ),
             floatingActionButton: cubit.tabBarIndex == 0
                 ?FloatingActionButton(
-
                 onPressed: ()
                 {
                   defaultModalBottomSheet(
                     context: context,
+                    popAfterButton: false,
                     defaultButtonMessage: Localization.translate('submit_button'),
                     child: Form(
                       key: formKey,
@@ -169,7 +174,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
                         ],
                       ),
                     ),
-                    onPressed: ()
+                    onPressed: (bottomSheetContext)
                     {
                       if(formKey.currentState!.validate())
                       {
@@ -183,6 +188,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 
                         newTodoIdController.value = TextEditingValue.empty;
                         newTodoNameController.value = TextEditingValue.empty;
+
+                        // Close the bottom sheet
+                        Navigator.of(bottomSheetContext).pop();
                       }
                     }
 
