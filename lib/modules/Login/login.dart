@@ -23,10 +23,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
+  //Login Controllers
   TextEditingController usernameController=TextEditingController();
-
   TextEditingController passwordController=TextEditingController();
 
+  //Form key for validating
   var formKey=GlobalKey<FormState>();
 
   List<String> listOfLanguages = ['ar','en'];
@@ -39,6 +40,7 @@ class _LoginState extends State<Login> {
     return BlocProvider(
       create: (BuildContext context)=> LoginCubit(),
       child: BlocConsumer<LoginCubit,LoginStates>(
+        //Listen to Login Changes
         listener: (context,state)
         {
           if(state is LoginErrorState)
@@ -88,6 +90,7 @@ class _LoginState extends State<Login> {
         {
           var cubit= LoginCubit.get(context);
 
+          //Listen to main AppCubit changes
           return BlocConsumer<AppCubit,AppStates>(
             listener: (appContext,appState){},
 

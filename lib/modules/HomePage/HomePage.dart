@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  //Scroll Controller & listener for Lazy Loading
+  ///Scroll Controller & listener for Lazy Loading
   ScrollController scrollController= ScrollController();
 
   //Global keys for ShowCaseView

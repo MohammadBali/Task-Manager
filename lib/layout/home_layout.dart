@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maids_project/layout/cubit/cubit.dart';
 import 'package:maids_project/layout/cubit/states.dart';
 import 'package:maids_project/shared/components/Localization/Localization.dart';
-import 'package:maids_project/shared/components/app_components.dart';
 import 'package:maids_project/shared/components/components.dart';
-import 'package:maids_project/shared/components/constants.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

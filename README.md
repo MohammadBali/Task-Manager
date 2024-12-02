@@ -36,12 +36,15 @@ The app is designed following Flutter best practices, with a focus on performanc
 
 8. **Unit Testing**
    - Comprehensive test coverage for task CRUD operations, input validation, and state management using mocks.
-   -
+
+9. **Show Case View**
+   - Tutorials on first startup, improving user usability
+   
 ---
 
 ## Screenshots
 
-- OnBoarding - Login Page - Home Page
+- Splash Screen - Login Page - Home Page
   ![Screenshot 1](https://i.postimg.cc/xTWQGVdc/Untitled-1.png)
 
 - Light Mode in Arabic - Settings Page - All Tasks
@@ -56,9 +59,9 @@ The app is designed following Flutter best practices, with a focus on performanc
 
 - **Flutter & Dart**: Framework for building cross-platform applications.
 - **BLoC**: State management pattern for efficient state handling.
-- **SQFLite**: Local database for task storage.
-- **SharedPreferences**: Lightweight storage for app settings.
-- **Dio**: HTTP client for API integration.
+- **SQFLite**: Local database for data storage.
+- **SharedPreferences**: Lightweight storage for app settings & tokens.
+- **Dio**: Powerful HTTP client for API integration.
 - **Google Material 3**: For UI design and accessibility.
 
 ---
@@ -72,6 +75,7 @@ The project is organized to ensure maintainability and scalability.
 ├── assets
 │   ├── fonts
 │   │   └── Cairo
+│   │   └── WithoutSans
 │   │
 │   └── images
 │       ├── personal
@@ -119,7 +123,7 @@ The project is organized to ensure maintainability and scalability.
 1. Clone the repository; this is my secondary GitHub Account:
    ```bash
    git clone https://github.com/ManuelEcardo/Maids.CC.git
-   cd location
+   cd Maids.cc
 
 2. Install Dependencies:
    ```bash
@@ -133,7 +137,13 @@ The project is organized to ensure maintainability and scalability.
    ```bash
    flutter build apk --release
 
+5. Apk Instance is available with the files
+   ```bash
+   /releases/maidsTaskManager.apk
+   
 > **_NOTE:_** App is not signed yet for a Google Store Release, so it will ask for a scan on Installation
+
+
 ---
 
 ## Design Decisions

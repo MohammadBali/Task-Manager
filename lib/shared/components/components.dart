@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:maids_project/layout/cubit/cubit.dart';
@@ -215,38 +213,6 @@ Widget defaultAlertDialog(
   );
 }
 
-
-//------------------------------------------------------------------------------------------\\
-
-///Default Simple Dialog (For ListView children)
-Widget defaultSimpleDialog(
-    {
-      required BuildContext context,
-      required String title,
-      required List<Widget> content,
-    })
-{
-  return SimpleDialog(
-    title: Text(
-      title,
-      textAlign: TextAlign.center,
-    ),
-
-    // titleTextStyle: TextStyle(
-    //   fontSize: 24,
-    //   color:  AppCubit.get(context).isDarkTheme? Colors.white: Colors.black,
-    //   fontWeight: FontWeight.w800,
-    //   fontFamily: AppCubit.language =='ar'? 'Cairo' :'Poppins',
-    // ),
-    //
-
-    backgroundColor: currentColorScheme(context).surfaceContainerHigh,
-    children: content,
-
-  );
-}
-
-
 //--------------------------------------------------------------------------------------------------\\
 
 ///Default Divider
@@ -330,83 +296,6 @@ Widget defaultProgressIndicator({required BuildContext context, double? value, b
   );
 }
 
-//------------------------------------------------------------------------------------------\\
-
-///Default SearchBar Builder
-Widget defaultSearchBar(
-{
-  IconData? leadingIcon,
-  Iterable<Widget>? trailing,
-  TextEditingController? controller,
-  String hintText = 'Search',
-  bool enabled=true,
-
-  void Function()? onTap,
-  void Function(PointerDownEvent)? onTapOutside,
-  void Function(String)? onChanged,
-  void Function(String)? onSubmitted,
-
-})=> SearchBar(
-  leading: Icon(leadingIcon?? Icons.search_outlined),
-  enabled: enabled,
-  hintText: hintText,
-  trailing: trailing,
-  onTap: onTap,
-  onTapOutside: onTapOutside?? (event) {FocusManager.instance.primaryFocus?.unfocus();},
-  onChanged: onChanged,
-  onSubmitted: onSubmitted,
-  controller: controller,
-);
-
-//------------------------------------------------------------------------------------------\\
-
-///Default Search Anchor Builder, gives a Suggestion Builder
-///* refer to: https://api.flutter.dev/flutter/material/SearchAnchor-class.html
-///* refer to: https://api.flutter.dev/flutter/material/SearchBar-class.html
-Widget defaultSearchAnchor(
-{
-  IconData? leadingIcon,
-  Iterable<Widget>? trailing,
-  TextEditingController? controller,
-  String hintText = 'Search',
-  bool enabled=true,
-
-  void Function()? onTap,
-  void Function(PointerDownEvent)? onTapOutside,
-  void Function(String)? onChanged,
-  void Function(String)? onSubmitted,
-  required FutureOr<Iterable<Widget>> Function(BuildContext, SearchController) suggestionsBuilder,
-})=> SearchAnchor(
-    builder: (BuildContext context, SearchController controller)=> defaultSearchBar(
-        leadingIcon: leadingIcon, trailing: trailing, controller: controller,
-        enabled: enabled, onChanged: onChanged, onTap: onTap, onSubmitted: onSubmitted,
-        onTapOutside: onTapOutside, hintText: hintText,
-    ),
-    suggestionsBuilder: suggestionsBuilder,
-);
-
-//------------------------------------------------------------------------------------------\\
-
-///Default Slider Builder
-Widget defaultSlider(
-{
-  required double value,
-  String? label,
-  SliderInteraction allowedInteractions = SliderInteraction.tapAndSlide,
-  int? divisions,
-  double min=0.0,
-  double max=1.0,
-  required void Function(double)? onChanged,
-}) =>Slider(
-  value: value,
-  onChanged: onChanged,
-  label: label,
-  allowedInteraction: allowedInteractions,
-  divisions: divisions,
-  min: min,
-  max: max,
-
-);
 
 //------------------------------------------------------------------------------------------\\
 
@@ -597,19 +486,6 @@ Widget defaultFormField({
 void navigateTo(BuildContext context, Widget widget) =>Navigator.push(
   context,
   MaterialPageRoute(builder: (context)=>widget),
-
-);
-
-//--------------------------------------------------------------------------------------------------\\
-
-/// Navigate to a screen and save the route name
-
-void navigateAndSaveRouteSettings(BuildContext context, Widget widget, String routeName) =>Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context)=>widget,
-    settings: RouteSettings(name: routeName,),
-  ),
 
 );
 

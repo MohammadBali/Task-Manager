@@ -181,8 +181,8 @@ Widget taskItemBuilder({
 //---------------------------------------------------------
 
 ///Check if it's this cache first launch so it shows the Tutorial
-///[cacheName] The cache value name
-///Returns [bool] depending on what's stored in the cache preferences
+/// * [cacheName] The cache value name
+/// * Returns [bool] depending on what's stored in the cache preferences
 Future<bool> isFirstLaunch(String cacheName) async{
   bool isFirstLaunch = CacheHelper.getData(key: cacheName) ?? true;
   if(isFirstLaunch) {
@@ -195,17 +195,21 @@ Future<bool> isFirstLaunch(String cacheName) async{
 //---------------------------------------------------------
 
 ///Show Case View Widget Builder
+/// * [globalKey] The Case Key, Unique
+/// * [title] ShowCase Title
+/// * [description] ShowCase Description
+/// * [child] the Widget to refer to
+/// * [cubit] AppCubit Instance
 class ShowCaseView extends StatelessWidget {
   const ShowCaseView(
-      {Key? key,
+      {super.key,
         required this.globalKey,
         required this.title,
         required this.description,
         required this.child,
         required this.cubit,
         this.isNotAnimated=false,
-        this.shapeBorder = const CircleBorder()})
-      : super(key: key);
+        this.shapeBorder = const CircleBorder()});
 
   final GlobalKey globalKey;
   final String title;

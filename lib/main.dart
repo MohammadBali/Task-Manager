@@ -1,4 +1,3 @@
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +20,7 @@ void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //Initializing Dio
+  //Initializing Dio; HTTP Client
   MainDioHelper.init();
 
   //Initializing CacheHelper (SharedPreferences)
@@ -30,15 +29,17 @@ void main() async
   //Load Language using Localization
   AppCubit.language= CacheHelper.getData(key: 'language');
   AppCubit.language ??= 'en';
-  await Localization.load(Locale(AppCubit.language!)); // Set the initial locale
+
+  // Set the Initial Local; Language
+  await Localization.load(Locale(AppCubit.language!));
 
   //print errors in console
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
   };
-  Bloc.observer = MyBlocObserver(); //Running Bloc Observer which prints change in states and errors etc...  in console
 
-  //Dio Initialization
+  //Bloc Observer; prints state changes & errors into console
+  Bloc.observer = MyBlocObserver();
 
   //Getting the last Cached ThemeMode
   bool? isDark = CacheHelper.getData(key: 'isDarkTheme');
@@ -52,10 +53,11 @@ void main() async
     refreshToken = CacheHelper.getData(key: 'refresh_token'); // Get refresh Token
   }
 
+  //to figure out which widget to send (login or HomePage) we use a widget and set the value in it depending on the token.
+  Widget widget;
 
-  Widget widget; //to figure out which widget to send (login or HomePage) we use a widget and set the value in it depending on the token.
-
-  if (token.isNotEmpty) //Token is there, so user has logged in before
+  //Token is there, so user has logged in before
+  if (token.isNotEmpty)
   {
     widget = const Home(); //Straight to Home Page.
   }
@@ -92,6 +94,7 @@ class MyApp extends StatelessWidget
               : ThemeMode.light,
           home: Directionality(
             textDirection: appDirectionality(),
+            //Animated Splash Screen to show logo on startup
             child: AnimatedSplashScreen(
               duration: 2000,
               animationDuration: const Duration(milliseconds: 200),
