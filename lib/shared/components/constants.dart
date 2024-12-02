@@ -17,3 +17,9 @@ enum ButtonType
 //Setting devices types
 Set<PointerDeviceKind> dragDevices={PointerDeviceKind.touch, PointerDeviceKind.mouse, PointerDeviceKind.trackpad};
 
+
+//Case Widgets Names
+
+const homeCache = 'homeCache';
+
+const mainCache = 'mainCache';

@@ -10,6 +10,7 @@ import 'package:maids_project/shared/components/components.dart';
 import 'package:maids_project/shared/components/constants.dart';
 import 'package:maids_project/shared/network/local/cache_helper.dart';
 import 'package:maids_project/shared/styles/colors.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'cubit/loginStates.dart';
 
@@ -66,7 +67,7 @@ class _LoginState extends State<Login> {
                 {
                   refreshToken = state.loginModel.refreshToken!;
 
-                  navigateAndFinish(context,const Home());
+                  navigateAndFinish(context, ShowCaseWidget(builder: (context)=>const Home()));
 
                 }).catchError((error)
                 {

@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:maids_project/shared/components/Imports/default_imports.dart';
 import 'package:maids_project/shared/components/app_components.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -13,6 +14,15 @@ class _HomePageState extends State<HomePage> {
 
   //Scroll Controller & listener for Lazy Loading
   ScrollController scrollController= ScrollController();
+
+  //Global keys for ShowCaseView
+  final GlobalKey completedTaskKey= GlobalKey();
+
+  final GlobalKey uncompletedTaskKey= GlobalKey();
+
+  final GlobalKey swipeToDeleteKey= GlobalKey();
+
+  final GlobalKey tabBarMovementKey = GlobalKey();
 
   @override
   void initState() {
@@ -29,6 +39,20 @@ class _HomePageState extends State<HomePage> {
     {
       cubit.getAllTodos();
     }
+
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp)
+    {
+      isFirstLaunch(homeCache).then((value)
+      {
+
+        if(value)
+        {
+          debugPrint('Showing Showcase in HomePage');
+          ShowCaseWidget.of(context).startShowCase([completedTaskKey, uncompletedTaskKey, swipeToDeleteKey, tabBarMovementKey]);
+        }
+      });
+    });
   }
 
   @override
@@ -88,44 +112,65 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 15,),
                         ],
                       ),
-                
+
                     Visibility(
                       visible: completedTodos !=null && completedTodos.isNotEmpty,
-                      child: Text(
-                        Localization.translate('completed_tasks'),
-                        style: headlineStyleBuilder(),
+                      child: ShowCaseView(
+                        cubit: cubit,
+                        globalKey: completedTaskKey,
+                        title: Localization.translate('completed_task_title_scv'),
+                        description: Localization.translate('completed_task_secondary_scv'),
+                        child: Text(
+                          Localization.translate('completed_tasks'),
+                          style: headlineStyleBuilder(),
+                        ),
                       ),
                     ),
-                
+
                     Visibility(
                       visible: completedTodos !=null && completedTodos.isNotEmpty,
-                      child: const SizedBox(height: 10,))
-                    ,
-                
+                      child: const SizedBox(height: 10,)),
+
                     ConditionalBuilder(
                         condition: cubit.userTodos !=null,
                         builder: (context)=>ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemBuilder: (context,index)=>taskItemBuilder(context: context, cubit:cubit, todo: completedTodos[index]!, showCompleted: false),
+                          itemBuilder: (context,index)
+                          {
+                            if(index==0)
+                            {
+                              return taskItemBuilder(context: context, cubit:cubit, todo: completedTodos[index]!, showCompleted: false, keys: [swipeToDeleteKey]);
+                            }
+                            else
+                            {
+                              return taskItemBuilder(context: context, cubit:cubit, todo: completedTodos[index]!, showCompleted: false);
+                            }
+                          },
                           separatorBuilder: (context,index)=>const SizedBox(height: 15,),
                           itemCount: completedTodos!.length,
                         ),
                         fallback: (context)=>defaultLinearProgressIndicator(context: context)
                     ),
-                
+
                     const SizedBox(height: 25,),
-                
+
                     Visibility(
                       visible:  nonCompletedTodos !=null &&  nonCompletedTodos.isNotEmpty,
-                      child: Text(
-                        Localization.translate('non_completed_tasks'),
-                        style: headlineStyleBuilder(),
+                      child: ShowCaseView(
+                        cubit: cubit,
+                        globalKey: uncompletedTaskKey,
+                        title: Localization.translate('incomplete_task_title_scv'),
+                        description: Localization.translate('incomplete_task_secondary_scv'),
+                        child: Text(
+                          Localization.translate('non_completed_tasks'),
+                          style: headlineStyleBuilder(),
+                        ),
                       ),
                     ),
-                
+
                     const SizedBox(height: 10,),
-                
+
                     ConditionalBuilder(
                         condition: cubit.userTodos !=null,
                         builder: (context)=>ListView.separated(

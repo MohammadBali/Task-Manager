@@ -15,6 +15,7 @@ import 'package:maids_project/shared/network/remote/main_dio_helper.dart';
 import 'package:maids_project/shared/styles/colors.dart';
 import 'package:maids_project/shared/styles/themes.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 void main() async
 {
@@ -128,7 +129,7 @@ class MyApp extends StatelessWidget
               ),
 
               splashIconSize: MediaQuery.of(context).size.width /1.1,
-              nextScreen: homeWidget,
+              nextScreen: ShowCaseWidget(builder: (context)=>homeWidget,),
               splashTransition: SplashTransition.fadeTransition,
               pageTransitionType: PageTransitionType.fade,
               backgroundColor:AppCubit.get(context).isDarkTheme? defaultHomeDarkColor : defaultHomeColor,

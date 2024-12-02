@@ -436,6 +436,7 @@ PreferredSizeWidget defaultTabBar(
       tabs: tabs,
       physics: physics,
       isScrollable: isScrollable,
+
       onTap: onTap?? (index){AppCubit.get(context).changeTabBar(index);},
 
 

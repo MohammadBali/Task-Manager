@@ -8,6 +8,7 @@ import 'package:maids_project/modules/Settings/Settings.dart';
 import 'package:maids_project/shared/components/Imports/default_imports.dart';
 import 'package:maids_project/shared/network/end_points.dart';
 import 'package:maids_project/shared/network/remote/main_dio_helper.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:sqflite/sqflite.dart';
 
 //Our State management, using BLoC
@@ -63,9 +64,10 @@ class AppCubit extends Cubit<AppStates>
   ///Specify the tabBar Widgets
   List<Widget> tabBarWidgets=
   [
-    HomePage(),
-    const AllTasks(),
-    const Settings(),
+    ShowCaseWidget(builder: (context)=>HomePage()),
+    ShowCaseWidget(builder: (context)=>const AllTasks()),
+    ShowCaseWidget(builder: (context)=>const Settings()),
+
   ];
 
   ///Alter the Current TabBar

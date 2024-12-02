@@ -103,6 +103,25 @@ const Map<String,String> en={
 
   //--------------------------------------------------------------------\\
 
+  //SHOW CASE VIEW
+
+  'completed_task_title_scv':'Completed Tasks',
+  'completed_task_secondary_scv':'It shows the completed tasks here',
+
+  'incomplete_task_title_scv':'Incomplete Tasks',
+  'incomplete_task_secondary_scv':'It shows the incomplete tasks here',
+
+  'delete_item_title_scv':'Delete a Task',
+  'delete_item_secondary_scv':'Swipe right or left to delete a task',
+
+  'edit_task_title_scv':'Edit Task',
+  'edit_task_secondary_scv':'Press edit to edit this task details',
+
+  'settings_title_scv':'Settings',
+  'settings_secondary_scv':'Navigate to settings to see more preferences like language and theme',
+
+  'tab_bar_title_scv':'Taskbar Movement',
+  'tab_bar_secondary_scv':'Swipe to move between tab bars',
 };
 
 
@@ -213,5 +232,25 @@ const Map<String,String> ar={
   'sign_out':'تسجيل الخروج والإغلاق',
 
   //--------------------------------------------------------------------\\
+
+  //SHOW CASE VIEW
+
+  'completed_task_title_scv':'الأعمال المكتملة',
+  'completed_task_secondary_scv':'تَظهر الأعمال المنتهية هنا',
+
+  'incomplete_task_title_scv':'الأعمال غير المنتهية',
+  'incomplete_task_secondary_scv':'تَظهر الأعمال غير المنتهية هنا',
+
+  'delete_item_title_scv':'حذف عمل',
+  'delete_item_secondary_scv':'اسحب يميناً أو شمالاً لحذف العمل',
+
+  'edit_task_title_scv':'تعديل عمل',
+  'edit_task_secondary_scv':'اضغط على تعديل لتغيير عمل ما',
+
+  'settings_title_scv':'الإعدادات',
+  'settings_secondary_scv':'توجه إلى الإعدادات لتصفح مزيد من الخصائص كاللغة والوضع الفاتح',
+
+  'tab_bar_title_scv':'حركة الشاشة',
+  'tab_bar_secondary_scv':'اسحب للتنقل بين الصفحات',
 
 };
