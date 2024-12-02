@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                           separatorBuilder: (context,index)=>const SizedBox(height: 15,),
                           itemCount: nonCompletedTodos!.length,
                         ),
-                        fallback: (context)=>defaultLinearProgressIndicator(context: context)
+                        fallback: (context)=>const SizedBox(width: 1,),
                     ),
                   ],
                 ),

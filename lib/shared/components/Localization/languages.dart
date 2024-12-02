@@ -47,6 +47,10 @@ const Map<String,String> en={
 
   'settings':'Settings',
 
+  'delete_item':'Delete Item',
+
+  'delete_item_secondary':'Do you want to delete this item?',
+
   //---------------------------------------------------------------------\\
 
   //TASK DETAILS
@@ -73,7 +77,7 @@ const Map<String,String> en={
 
   'finish_task':'Done',
 
-
+  'remove_an_item_swap':'Removed Successfully',
 
 
 
@@ -152,6 +156,10 @@ const Map<String,String> ar={
 
   'settings':'الإعدادات',
 
+  'delete_item':'حذف عنصر',
+
+  'delete_item_secondary':'هل تريد حذف هذا العنصر؟',
+
   //---------------------------------------------------------------------\\
 
   //TASK DETAILS
@@ -178,6 +186,8 @@ const Map<String,String> ar={
   'delete_task':'حذف',
 
   'finish_task':'إنهاء',
+
+  'remove_an_item_swap':'تم حذفها',
 
   //---------------------------------------------------------------------\\
 

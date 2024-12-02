@@ -100,7 +100,7 @@ class AppCubit extends Cubit<AppStates>
 
         emit(AppGetUserDataSuccessState());
 
-        getUserTodos();
+        getUserTodos(getFromDB: true);
       }).catchError((error, stackTrace)
       {
         debugPrint('ERROR WHILE GETTING USER DATA, ${error.toString()}');

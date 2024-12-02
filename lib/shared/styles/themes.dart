@@ -222,6 +222,7 @@ ThemeData darkTheme(context) => ThemeData(
     padding: WidgetStateProperty.all(const EdgeInsetsDirectional.symmetric(horizontal: 16)),
   ),
 
+
   textTheme: Theme.of(context).textTheme.apply(
     fontFamily: AppCubit.language == 'ar' ? 'Cairo' : null,
     bodyColor: darkColorScheme.onSurface,
