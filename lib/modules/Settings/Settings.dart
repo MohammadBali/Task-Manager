@@ -178,7 +178,7 @@ class _SettingsState extends State<Settings> {
                                 type: ButtonType.text,
                                 customChild: Text(
                                   Localization.translate('sign_out'),
-                                  style: textStyleBuilder(fontWeight: FontWeight.w600),
+                                  style: textStyleBuilder(fontWeight: FontWeight.w400),
                                 ),
                                 onPressed: ()
                                 {

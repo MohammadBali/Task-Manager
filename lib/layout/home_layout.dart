@@ -92,7 +92,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
             ),
 
             body: Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 18.0, vertical: 30.0),
               child: cubit.tabBarWidgets[cubit.tabBarIndex],
             ),
             floatingActionButton: cubit.tabBarIndex == 0

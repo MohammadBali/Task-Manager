@@ -110,14 +110,17 @@ class MyApp extends StatelessWidget
                       ),
                     ),
 
-                  Text(
-                    'Get a Full-time Maid or a Maid Visa',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'WithoutSans',
-                      color: AppCubit.get(context).isDarkTheme
-                          ?darkColorScheme.onSurface
-                          :lightColorScheme.onSurface
+                  Center(
+                    child: Text(
+                      'Get a Full-time Maid or a Maid Visa',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'WithoutSans',
+                        color: AppCubit.get(context).isDarkTheme
+                            ?darkColorScheme.secondary
+                            :lightColorScheme.secondary
+                      ),
                     ),
                   )
                   ],

@@ -69,7 +69,7 @@ class _AllTasksState extends State<AllTasks> {
                       ],
                     ),
 
-                  const SizedBox(height: 35,),
+                  
 
                   ConditionalBuilder  (
                       condition: cubit.allTodos !=null,

@@ -6,6 +6,7 @@ const Map<String,String> en={
   'upload_button':'UPLOAD',
   'loading':'Loading...',
   'success':'Success...',
+  'refreshed':'Refreshed...',
 
   'error':'An Error happened,',
   'exit':'Exit',
@@ -70,7 +71,7 @@ const Map<String,String> en={
 
   'delete_task':'Delete',
 
-  'finish_task':'Finish',
+  'finish_task':'Done',
 
 
 
@@ -110,6 +111,7 @@ const Map<String,String> ar={
   'upload_button':'ارفع',
   'loading':'يتم التحميل, الرجاء الانتظار',
   'success':'تمت بنجاح...',
+  'refreshed':'تم التحديث...',
 
   'error':'حدث خطأ أثناء العملية',
   'exit':'الخروج',
@@ -156,9 +158,9 @@ const Map<String,String> ar={
 
   'new_task':'أضف مهمة جديدة!',
 
-  'completed_tasks':'المهام المنتهية',
+  'completed_tasks':'المهام المكتملة',
 
-  'non_completed_tasks':'المهام غير المنتهية',
+  'non_completed_tasks':'المهام غير المكتملة',
 
 
   'task_details':'تفاصيل المهمة',

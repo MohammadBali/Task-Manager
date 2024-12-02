@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       {
         if(state is AppGetUserTodosSuccessState)
         {
-          snackBarBuilder(message: Localization.translate('success'), context: context);
+          snackBarBuilder(message: Localization.translate('refreshed'), context: context);
         }
         if(state is AppGetUserTodosErrorState)
         {
