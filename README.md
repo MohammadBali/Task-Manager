@@ -45,13 +45,13 @@ The app is designed following Flutter best practices, with a focus on performanc
 ## Screenshots
 
 - Splash Screen - Login Page - Home Page
-  ![Screenshot 1](https://i.postimg.cc/xTWQGVdc/Untitled-1.png)
+  ![Screenshot 1](https://i.postimg.cc/N0fR13cz/Untitled-1.png)
 
 - Light Mode in Arabic - Settings Page - All Tasks
-  ![Screenshot 2](https://i.postimg.cc/bwkh3VGL/Untitled-2.png)
+  ![Screenshot 2](https://i.postimg.cc/FHxjk92S/Untitled-2.png)
 
 - Edit a Task - Add a New Task - SnackBar
-  ![Screenshot 3](https://i.postimg.cc/442sd9kv/Untitled-3.png)
+  ![Screenshot 3](https://i.postimg.cc/t4b3g1my/Untitled-3.png)
 
 ---
 
