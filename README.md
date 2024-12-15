@@ -122,8 +122,8 @@ The project is organized to ensure maintainability and scalability.
 
 1. Clone the repository; this is my secondary GitHub Account:
    ```bash
-   git clone https://github.com/ManuelEcardo/Maids.CC.git
-   cd Maids.cc
+   git clone https://github.com/MohammadBali/Task-Manager.git
+   cd Task-Manager
 
 2. Install Dependencies:
    ```bash
